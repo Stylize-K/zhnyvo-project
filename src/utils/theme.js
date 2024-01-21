@@ -149,4 +149,7 @@ export const theme = createTheme({
       },
     },
   },
+  typography: {
+    fontFamily: ["Mulish", "Philosopher", "sans-serif"].join(","),
+  },
 });
