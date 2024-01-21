@@ -113,4 +113,7 @@ export const theme = createTheme({
       dark: shades.neutral[20],
     },
   },
+  typography: {
+    fontFamily: ["Mulish", "Philosopher", "sans-serif"].join(","),
+  },
 });
