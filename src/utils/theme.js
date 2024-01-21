@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 
 export const shades = {
   primary: {
@@ -105,12 +105,48 @@ export const theme = createTheme({
   palette: {
     primary: {
       main: shades.primary[95],
+      light: shades.primary[95],
+      dark: shades.primary[90],
+      contrastText: shades.primary[10],
     },
     secondary: {
       main: shades.secondary[95],
     },
     neutral: {
       dark: shades.neutral[20],
+    },
+    neutralVariant: {
+      main: shades.neutralVariant[50],
+    },
+    tertiary: {
+      main: shades.tertiary[40],
+    },
+  },
+  overrides: {
+    MuiLink: {
+      root: {
+        color: shades.tertiary[40],
+        textDecoration: "none",
+      },
+    },
+    MuiFormControl: {
+      root: {
+        height: "48px",
+      },
+    },
+    MuiInputBase: {
+      root: {
+        height: "48px",
+      },
+    },
+  },
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: shades.neutral.text, // Set default text color for Typography
+        },
+      },
     },
   },
   typography: {
