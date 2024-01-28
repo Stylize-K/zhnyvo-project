@@ -2,6 +2,7 @@ import { VsxIcon } from "react-iconsax-vite";
 import { MainButton, FatButton, IconBox } from "./mainPage.styled";
 import { Box, Container } from "@mui/material";
 import { SectionHeader } from "../../components/mainPage/SectionHeader";
+import { ProductCard } from "../../components/mainPage/ProductCard";
 
 export const MainPage = () => {
   return (
@@ -73,15 +74,19 @@ export const MainPage = () => {
         </Box>
         <section>
           <SectionHeader sectionTitle="Останні переглянуті" />
+          <ProductCard />
         </section>
         <section>
           <SectionHeader sectionTitle="Акційні пропозиції" />
+          <ProductCard />
         </section>
         <section>
           <SectionHeader sectionTitle="Популярне" />
+          <ProductCard />
         </section>
         <section>
           <SectionHeader sectionTitle="Новинки" />
+          <ProductCard />
         </section>
       </main>
     </Container>
