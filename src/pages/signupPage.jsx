@@ -18,29 +18,51 @@ import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
-export const LoginPage = () => {
+import { PasswordConditions } from "../utils/PasswordConditions";
+const validatePassword = (password) => {
+  const regex = /^(?=.*[a-zA-Zа-яА-Я])(?=.*\d).{8,}$/;
+
+  return regex.test(password);
+};
+export const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const handlePasswordChange = (event) => {
+    const newPassword = event.target.value;
+    setPassword(newPassword);
+
+    if (newPassword.length === 0 || validatePassword(newPassword)) {
+      setPasswordError("");
+    } else {
+      setPasswordError(
+        "Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one digit."
+      );
+    }
+  };
+
   return (
     <>
       <Container maxWidth="xs">
         <Box mt="70px" mb="32px" sx={{ width: "372px" }}>
           <Typography variant="h6" align="left">
-            З поверненням
+            Вітаємо в Zhnyvo
           </Typography>
           <Typography align="left">
-            Увійдіть або{" "}
+            Зареєструйтесь або{" "}
             <Link
               color="tertiary.main"
               underline="hover"
               component={RouterLink}
-              to={"/signup"}
+              to={"/login"}
             >
-              зареєструйтесь
+              увійдіть
             </Link>
             , щоб відслідковувати свої замовлення, додавати в улюблене та
             створювати списки.
@@ -60,9 +82,9 @@ export const LoginPage = () => {
                 borderRadius: "16px",
               },
             }}
+            fullWidth
             color="neutralVariant"
             label="Пошта"
-            fullWidth
             name="email"
           />
           <TextField
@@ -95,27 +117,36 @@ export const LoginPage = () => {
             label="Пароль"
             name="password"
             type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={handlePasswordChange}
+            error={Boolean(passwordError)}
           />
         </Box>
-        <Box display="flex" justifyContent="end" mb="24px">
-          <Link
-            color="tertiary.main"
-            underline="hover"
-            component={RouterLink}
-            to={"/forgotPassword"}
-          >
-            Забули пароль?
-          </Link>
+        <Box mb="10px" display="flex">
+          {password.length > 0 ? (
+            passwordError ? (
+              <PasswordConditions isValid={password} />
+            ) : (
+              <PasswordConditions isValid={password} />
+            )
+          ) : (
+            ""
+          )}
         </Box>
+
         <Box>
           <Button
-            sx={{ borderRadius: "16px", height: "48px", marginBottom: "24px" }}
+            sx={{
+              borderRadius: "16px",
+              height: "48px",
+              marginBottom: "24px",
+            }}
             disableElevation
             fullWidth
             variant="contained"
             color="primary"
           >
-            Увійти
+            Зареєструватись
           </Button>
         </Box>
         <Divider sx={{ marginBottom: "24px" }}>Або</Divider>

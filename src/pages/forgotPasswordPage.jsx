@@ -3,47 +3,25 @@ import {
   Button,
   Container,
   Divider,
-  IconButton,
   InputAdornment,
   Link,
   TextField,
   Typography,
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
-import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
-import Visibility from "@mui/icons-material/Visibility";
 import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { Link as RouterLink } from "react-router-dom";
-import { useState } from "react";
-export const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+export const ForgotPasswordPage = () => {
   return (
     <>
       <Container maxWidth="xs">
         <Box mt="70px" mb="32px" sx={{ width: "372px" }}>
           <Typography variant="h6" align="left">
-            З поверненням
+            Скидання пароля
           </Typography>
           <Typography align="left">
-            Увійдіть або{" "}
-            <Link
-              color="tertiary.main"
-              underline="hover"
-              component={RouterLink}
-              to={"/signup"}
-            >
-              зареєструйтесь
-            </Link>
-            , щоб відслідковувати свої замовлення, додавати в улюблене та
-            створювати списки.
+            Без паніки. Ми надішлемо вам на пошту тимчасовий пароль для входу
           </Typography>
         </Box>
         <Box flexGrow={1}>
@@ -65,46 +43,15 @@ export const LoginPage = () => {
             fullWidth
             name="email"
           />
-          <TextField
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <KeyRoundedIcon />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-              style: {
-                marginBottom: "20px",
-                outline: "none",
-                borderRadius: "16px",
-              },
-            }}
-            fullWidth
-            color="neutralVariant"
-            label="Пароль"
-            name="password"
-            type={showPassword ? "text" : "password"}
-          />
         </Box>
         <Box display="flex" justifyContent="end" mb="24px">
           <Link
             color="tertiary.main"
             underline="hover"
             component={RouterLink}
-            to={"/forgotPassword"}
+            to={"/login"}
           >
-            Забули пароль?
+            Згадали пароль?
           </Link>
         </Box>
         <Box>
@@ -115,7 +62,7 @@ export const LoginPage = () => {
             variant="contained"
             color="primary"
           >
-            Увійти
+            Надіслати пароль
           </Button>
         </Box>
         <Divider sx={{ marginBottom: "24px" }}>Або</Divider>
