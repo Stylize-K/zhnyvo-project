@@ -12,28 +12,36 @@ import {
 import GoogleIcon from "@mui/icons-material/Google";
 import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
 import Visibility from "@mui/icons-material/Visibility";
 import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
 import { PasswordConditions } from "../utils/PasswordConditions";
+import { useDispatch, useSelector } from "react-redux";
+import authOperations from "../redux/auth/authOperations";
 const validatePassword = (password) => {
   const regex = /^(?=.*[a-zA-Zа-яА-Я])(?=.*\d).{8,}$/;
 
   return regex.test(password);
 };
+
 export const SignupPage = () => {
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
+  const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
   const handlePasswordChange = (event) => {
     const newPassword = event.target.value;
     setPassword(newPassword);
@@ -45,6 +53,9 @@ export const SignupPage = () => {
         "Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one digit."
       );
     }
+  };
+  const handleSignup = () => {
+    dispatch(authOperations.registration({ email, password }));
   };
 
   return (
@@ -86,6 +97,8 @@ export const SignupPage = () => {
             color="neutralVariant"
             label="Пошта"
             name="email"
+            value={email}
+            onChange={handleEmailChange}
           />
           <TextField
             InputProps={{
@@ -136,6 +149,8 @@ export const SignupPage = () => {
 
         <Box>
           <Button
+            onClick={handleSignup}
+            disabled={loading}
             sx={{
               borderRadius: "16px",
               height: "48px",
@@ -146,7 +161,7 @@ export const SignupPage = () => {
             variant="contained"
             color="primary"
           >
-            Зареєструватись
+            {loading ? "Реєструємо..." : "Зареєструватись"}
           </Button>
         </Box>
         <Divider sx={{ marginBottom: "24px" }}>Або</Divider>
