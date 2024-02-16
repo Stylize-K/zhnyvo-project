@@ -18,12 +18,28 @@ import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import authOperations from "../redux/auth/authOperations";
+
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials((prevCredentials) => ({
+      ...prevCredentials,
+      [name]: value,
+    }));
+  };
+  const handleLogin = () => {
+    dispatch(authOperations.login(credentials)); // Dispatch your login action here
   };
   return (
     <>
@@ -64,6 +80,8 @@ export const LoginPage = () => {
             label="Пошта"
             fullWidth
             name="email"
+            value={credentials.email}
+            onChange={handleChange}
           />
           <TextField
             InputProps={{
@@ -94,6 +112,8 @@ export const LoginPage = () => {
             color="neutralVariant"
             label="Пароль"
             name="password"
+            value={credentials.password}
+            onChange={handleChange}
             type={showPassword ? "text" : "password"}
           />
         </Box>
@@ -114,8 +134,10 @@ export const LoginPage = () => {
             fullWidth
             variant="contained"
             color="primary"
+            onClick={handleLogin}
+            disabled={loading}
           >
-            Увійти
+            {loading ? "Входимо..." : "Увійти"}
           </Button>
         </Box>
         <Divider sx={{ marginBottom: "24px" }}>Або</Divider>

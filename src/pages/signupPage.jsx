@@ -55,7 +55,9 @@ export const SignupPage = () => {
     }
   };
   const handleSignup = () => {
-    dispatch(authOperations.registration({ email, password }));
+    dispatch(
+      authOperations.registration({ email, password, role: "Customer" })
+    );
   };
 
   return (

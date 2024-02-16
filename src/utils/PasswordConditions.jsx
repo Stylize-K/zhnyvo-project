@@ -22,10 +22,14 @@ export const PasswordConditions = ({ isValid }) => {
       }}
     >
       <Typography
-        // eslint-disable-next-line react/prop-types
-        sx={isValid.length >= 8 ? conditionMetStyle : conditionNotMetStyle}
+        sx={
+          // eslint-disable-next-line react/prop-types
+          isValid.length >= 8 && isValid.length < 30
+            ? conditionMetStyle
+            : conditionNotMetStyle
+        }
       >
-        Мінімум 8 символів
+        Мінімум 8 символів, максимум 30
       </Typography>
       <Typography
         sx={/[a-zа-я]/.test(isValid) ? conditionMetStyle : conditionNotMetStyle}
