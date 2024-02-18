@@ -12,51 +12,70 @@ import {
 import GoogleIcon from "@mui/icons-material/Google";
 import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
 import Visibility from "@mui/icons-material/Visibility";
 import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
+import { PasswordConditions } from "../utils/PasswordConditions";
 import { useDispatch, useSelector } from "react-redux";
 import authOperations from "../redux/auth/authOperations";
+const validatePassword = (password) => {
+  const regex = /^(?=.*[a-zA-Zа-яА-Я])(?=.*\d).{8,}$/;
 
-export const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  return regex.test(password);
+};
+
+export const SignupPage = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
+  const [email, setEmail] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials((prevCredentials) => ({
-      ...prevCredentials,
-      [name]: value,
-    }));
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
-  const handleLogin = () => {
-    dispatch(authOperations.login(credentials)); // Dispatch your login action here
+  const handlePasswordChange = (event) => {
+    const newPassword = event.target.value;
+    setPassword(newPassword);
+
+    if (newPassword.length === 0 || validatePassword(newPassword)) {
+      setPasswordError("");
+    } else {
+      setPasswordError(
+        "Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one digit."
+      );
+    }
   };
+  const handleSignup = () => {
+    dispatch(
+      authOperations.registration({ email, password, role: "Customer" })
+    );
+  };
+
   return (
     <>
       <Container maxWidth="xs">
         <Box mt="70px" mb="32px" sx={{ width: "372px" }}>
           <Typography variant="h6" align="left">
-            З поверненням
+            Вітаємо в Zhnyvo
           </Typography>
           <Typography align="left">
-            Увійдіть або{" "}
+            Зареєструйтесь або{" "}
             <Link
               color="tertiary.main"
               underline="hover"
               component={RouterLink}
-              to={"/signup"}
+              to={"/login"}
             >
-              зареєструйтесь
+              увійдіть
             </Link>
             , щоб відслідковувати свої замовлення, додавати в улюблене та
             створювати списки.
@@ -76,12 +95,12 @@ export const LoginPage = () => {
                 borderRadius: "16px",
               },
             }}
+            fullWidth
             color="neutralVariant"
             label="Пошта"
-            fullWidth
             name="email"
-            value={credentials.email}
-            onChange={handleChange}
+            value={email}
+            onChange={handleEmailChange}
           />
           <TextField
             InputProps={{
@@ -112,32 +131,39 @@ export const LoginPage = () => {
             color="neutralVariant"
             label="Пароль"
             name="password"
-            value={credentials.password}
-            onChange={handleChange}
             type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={handlePasswordChange}
+            error={Boolean(passwordError)}
           />
         </Box>
-        <Box display="flex" justifyContent="end" mb="24px">
-          <Link
-            color="tertiary.main"
-            underline="hover"
-            component={RouterLink}
-            to={"/forgotPassword"}
-          >
-            Забули пароль?
-          </Link>
+        <Box mb="10px" display="flex">
+          {password.length > 0 ? (
+            passwordError ? (
+              <PasswordConditions isValid={password} />
+            ) : (
+              <PasswordConditions isValid={password} />
+            )
+          ) : (
+            ""
+          )}
         </Box>
+
         <Box>
           <Button
-            sx={{ borderRadius: "16px", height: "48px", marginBottom: "24px" }}
+            onClick={handleSignup}
+            disabled={loading}
+            sx={{
+              borderRadius: "16px",
+              height: "48px",
+              marginBottom: "24px",
+            }}
             disableElevation
             fullWidth
             variant="contained"
             color="primary"
-            onClick={handleLogin}
-            disabled={loading}
           >
-            {loading ? "Входимо..." : "Увійти"}
+            {loading ? "Реєструємо..." : "Зареєструватись"}
           </Button>
         </Box>
         <Divider sx={{ marginBottom: "24px" }}>Або</Divider>

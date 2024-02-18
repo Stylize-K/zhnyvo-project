@@ -15,6 +15,7 @@ export const shades = {
     10: "#121F00",
     0: "#000000",
   },
+
   secondary: {
     100: "#FFFFFF",
     95: "#DFF4D9",
@@ -102,6 +103,7 @@ export const shades = {
 };
 
 export const theme = createTheme({
+  mode: "light",
   palette: {
     primary: {
       main: shades.primary[95],
