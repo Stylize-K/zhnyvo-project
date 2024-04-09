@@ -7,7 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-export const Appbar = () => {
+import KeyboardBackspaceOutlinedIcon from "@mui/icons-material/KeyboardBackspaceOutlined";
+export const Appbar = ({ toggleMenu, isMenuOpen }) => {
   return (
     <>
       <Container maxWidth="xs">
@@ -17,15 +18,16 @@ export const Appbar = () => {
             sx={{ backgroundColor: "#fff" }}
             position="static"
           >
-            <Toolbar>
+            <Toolbar disableGutters={true}>
               <IconButton
                 size="large"
                 edge="start"
                 color="inherit"
                 aria-label="menu"
                 sx={{ mr: 2 }}
+                onClick={toggleMenu}
               >
-                <MenuIcon />
+                {isMenuOpen ? <KeyboardBackspaceOutlinedIcon /> : <MenuIcon />}
               </IconButton>
               <Typography>Zhnyvo logo</Typography>
             </Toolbar>

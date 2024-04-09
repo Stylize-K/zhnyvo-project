@@ -8,6 +8,7 @@ const initialState = {
   },
   loading: false,
   error: null,
+  token: null,
 };
 const authSlice = createSlice({
   name: "auth",
@@ -34,12 +35,27 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(authOperations.login.fulfilled, (state, action) => {
-        state.user.email = action.payload.email;
+        state.user = action.payload;
         state.isAuthenticated = true;
         state.loading = false;
+        state.token = action.payload.token;
       })
       .addCase(authOperations.login.rejected, (state, action) => {
         state.isAuthenticated = false;
+        state.error = action.payload;
+        state.loading = false;
+      })
+      .addCase(authOperations.getPersonalInfo.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(authOperations.getPersonalInfo.fulfilled, (state, action) => {
+        // Assuming the personal info is returned as an object with fields like name, address, etc.
+        state.user = action.payload.user;
+        state.isLoggedIn = true;
+        state.loading = false;
+      })
+      .addCase(authOperations.getPersonalInfo.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
       });

@@ -123,6 +123,12 @@ export const theme = createTheme({
     tertiary: {
       main: shades.tertiary[40],
     },
+    error: {
+      main: shades.error[40],
+    },
+    logout: {
+      main: shades.neutral[90],
+    },
   },
   overrides: {
     MuiLink: {
