@@ -35,7 +35,7 @@ export const Menu = ({ closeMenu }) => {
             variant="text"
             color="neutralVariant"
             component={RouterLink}
-            to={"/signup"}
+            to={user.isAuthenticated ? "/profilePage" : "/signup"}
             sx={{
               borderRadius: "16px",
               height: "48px",
@@ -47,7 +47,7 @@ export const Menu = ({ closeMenu }) => {
             <AccountCircleOutlinedIcon
               sx={{ marginRight: "16px", marginLeft: "16px" }}
             />
-            {user.isAuthenticated ? user.email : "Вхід та реєстрація"}
+            {user.isAuthenticated ? user.user.email : "Вхід та реєстрація"}
           </Button>
         </Box>
         <Box
