@@ -4,7 +4,29 @@ import { Box, Container } from "@mui/material";
 import { SectionHeader } from "../../components/mainPage/SectionHeader";
 import { ProductCard } from "../../components/mainPage/ProductCard";
 
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectProducts,
+  selectIsLoading,
+  selectError,
+} from "../../redux/products/selectors";
+import { useEffect } from "react";
+import { fetchProducts } from "../../redux/products/operations";
+
 export const MainPage = () => {
+  const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  console.log(products);
+  console.log(isLoading);
+  console.log(error);
+
   return (
     <Container>
       <main>
@@ -92,5 +114,3 @@ export const MainPage = () => {
     </Container>
   );
 };
-
-<VsxIcon iconName="BagTimer" type="outline" size="24" color="#545D89" />;
