@@ -28,7 +28,7 @@ export const Menu = ({ closeMenu }) => {
   return (
     <>
       <Container maxWidth="xs">
-        <Box mt="32px" mb="32px">
+        <Box mt="32px" mb="32px" pt="12px" pb="12px">
           <Button
             // disableElevation
             fullWidth
@@ -38,16 +38,77 @@ export const Menu = ({ closeMenu }) => {
             to={user.isAuthenticated ? "/profilePage" : "/signup"}
             sx={{
               borderRadius: "16px",
-              height: "48px",
-              justifyContent: "flex-start",
+              height: "68px",
+              justifyContent: "space-between",
               boxShadow: " 0px 0px 5px 0px #0000001F",
+              alignItems: "center",
             }}
             onClick={handleButtonClick}
           >
-            <AccountCircleOutlinedIcon
-              sx={{ marginRight: "16px", marginLeft: "16px" }}
-            />
-            {user.isAuthenticated ? user.user.email : "Вхід та реєстрація"}
+            {user.isAuthenticated ? (
+              <>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <AccountCircleOutlinedIcon
+                    sx={{ marginRight: "16px", marginLeft: "16px" }}
+                  />
+                  <Box height="44px" textAlign="left" textTransform="none">
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontSize: "16px",
+                        color: "#1C1F21",
+                      }}
+                    >
+                      {user.isAuthenticated
+                        ? user.user.name
+                          ? user.user.name
+                          : "Не вказано"
+                        : null}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "14px",
+                        color: "#484647",
+                      }}
+                    >
+                      {user.isAuthenticated
+                        ? user.user.email
+                        : "Вхід та реєстрація"}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    justifySelf: "end",
+                    gridColumn: "2 / span 1",
+                    marginRight: "16px",
+                  }}
+                >
+                  <VsxIcon
+                    iconName="ArrowRight2"
+                    type="linear"
+                    size="24"
+                    color="#1C1F21"
+                  />
+                </Box>
+              </>
+            ) : (
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <AccountCircleOutlinedIcon
+                  sx={{ marginRight: "16px", marginLeft: "16px" }}
+                />
+                <Box textAlign="left" textTransform="none">
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      color: "#484647",
+                    }}
+                  >
+                    Вхід та реєстрація
+                  </Typography>
+                </Box>
+              </Box>
+            )}
           </Button>
         </Box>
         <Box

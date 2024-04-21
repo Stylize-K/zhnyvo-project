@@ -25,6 +25,7 @@ export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
+
   const loading = useSelector((state) => state.auth.loading);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -38,8 +39,13 @@ export const LoginPage = () => {
       [name]: value,
     }));
   };
-  const handleLogin = () => {
-    dispatch(authOperations.login(credentials)); // Dispatch your login action here
+  const handleLogin = async () => {
+    try {
+      await dispatch(authOperations.login(credentials));
+      window.location.replace("/");
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
   return (
     <>

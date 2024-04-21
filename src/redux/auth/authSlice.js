@@ -9,6 +9,7 @@ const initialState = {
   loading: false,
   error: null,
   token: null,
+  refreshToken: null,
   isRefreshing: false,
 };
 const authSlice = createSlice({
@@ -40,6 +41,7 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         state.loading = false;
         state.token = action.payload.accessToken;
+        state.refreshedToken = action.payload.refreshToken;
       })
       .addCase(authOperations.login.rejected, (state, action) => {
         state.isAuthenticated = false;
@@ -51,7 +53,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(authOperations.getPersonalInfo.fulfilled, (state, action) => {
-        // Assuming the personal info is returned as an object with fields like name, address, etc.
         state.user = action.payload;
         state.isAuthenticated = true;
         state.loading = false;
@@ -70,6 +71,12 @@ const authSlice = createSlice({
       })
       .addCase(authOperations.refreshUser.rejected, (state) => {
         state.isRefreshing = false;
+      })
+      .addCase(authOperations.logOut.fulfilled, (state) => {
+        state.user.email = null;
+        state.isAuthenticated = false;
+        state.token = null;
+        state.refreshToken = null;
       });
   },
 });

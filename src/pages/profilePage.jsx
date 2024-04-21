@@ -7,13 +7,25 @@ import {
   Typography,
 } from "@mui/material";
 import { VsxIcon } from "react-iconsax-vite";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../redux/auth/selectors";
+import { Link as RouterLink } from "react-router-dom";
+import authOperations from "../redux/auth/authOperations";
 
 export const ProfilePage = () => {
   const [isEditingContacts, setIsEditingContacts] = useState(false);
   const [isEditingPersonalInfo, setIsEditingPersonalInfo] = useState(false);
   const [isEditingLoginDetails, setIsEditingLoginDetails] = useState(false);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
+
+  const user = useSelector(selectUser);
+  console.log(user);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(authOperations.getPersonalInfo());
+  }, [dispatch]);
 
   const cancelEditPersonalInfo = () => {
     setIsEditingPersonalInfo(false);
@@ -676,7 +688,7 @@ export const ProfilePage = () => {
                       fontWeight: "500",
                     }}
                   >
-                    Пошта
+                    {user.user.email}
                   </Typography>
                 </Box>
               </Box>
@@ -689,6 +701,9 @@ export const ProfilePage = () => {
               fullWidth
               disableElevation
               variant="contained"
+              component={RouterLink}
+              to={"/"}
+              onClick={() => dispatch(authOperations.logOut())}
               sx={{ borderRadius: "12px", height: "40px" }}
             >
               <VsxIcon
