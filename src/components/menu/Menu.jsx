@@ -16,7 +16,7 @@ import authOperations from "../../redux/auth/authOperations";
 
 export const Menu = ({ closeMenu }) => {
   const user = useSelector(selectUser);
-  console.log(user);
+  // console.log(user);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -93,21 +93,23 @@ export const Menu = ({ closeMenu }) => {
                 </Box>
               </>
             ) : (
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <AccountCircleOutlinedIcon
-                  sx={{ marginRight: "16px", marginLeft: "16px" }}
-                />
-                <Box textAlign="left" textTransform="none">
-                  <Typography
-                    sx={{
-                      fontSize: "16px",
-                      color: "#484647",
-                    }}
-                  >
-                    Вхід та реєстрація
-                  </Typography>
+              <>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <AccountCircleOutlinedIcon
+                    sx={{ marginRight: "16px", marginLeft: "16px" }}
+                  />
+                  <Box textAlign="left" textTransform="none">
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#484647",
+                      }}
+                    >
+                      Вхід та реєстрація
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
+              </>
             )}
           </Button>
         </Box>
@@ -122,6 +124,8 @@ export const Menu = ({ closeMenu }) => {
             fullWidth
             variant="text"
             color="neutralVariant"
+            component={RouterLink}
+            to={"/cart"}
             sx={{
               paddingLeft: "16px",
               paddingRight: "16px",

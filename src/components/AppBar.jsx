@@ -18,10 +18,10 @@ export const Appbar = ({ toggleMenu, isMenuOpen }) => {
   const user = useSelector(selectUser);
   console.log(user);
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(authOperations.getPersonalInfo());
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(authOperations.getPersonalInfo());
+  // }, [dispatch]);
   return (
     <>
       <Container maxWidth="xs">

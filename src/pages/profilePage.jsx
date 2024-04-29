@@ -336,7 +336,7 @@ export const ProfilePage = () => {
                       fontWeight: "500",
                     }}
                   >
-                    Не вказано
+                    {user.user.email}
                   </Typography>
                 </Box>
                 <Box>
