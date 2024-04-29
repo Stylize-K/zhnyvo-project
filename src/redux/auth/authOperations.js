@@ -99,11 +99,10 @@ const refreshUser = createAsyncThunk("auth/refresh", async (_, thunkAPI) => {
     localStorage.setItem("accessToken", data.accessToken);
     return data;
   } catch (error) {
-    console.error("Refresh Error:", error);
     return thunkAPI.rejectWithValue(error.message);
   }
 });
-export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
     await axios.delete("/api/Account/logout", {
       headers: {

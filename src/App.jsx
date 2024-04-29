@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import { ProfilePage } from "./pages/profilePage";
 import authOperations from "./redux/auth/authOperations";
 import { selectIsRefreshing } from "./redux/auth/selectors";
+import { Box } from "@mui/material";
+import { Cart } from "./pages/cartPage";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,7 +31,9 @@ function App() {
   return (
     <>
       {isRefreshing ? (
-        <div>...loading</div>
+        <>
+          <Box>...loading</Box>
+        </>
       ) : (
         <BrowserRouter>
           <Appbar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
@@ -40,6 +44,7 @@ function App() {
               <Route path="/" element={<MainPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
+              <Route path="/cart" element={<Cart />} />
               <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
               <Route path="/profilePage" element={<ProfilePage />} />
               {/* <LoginPage />

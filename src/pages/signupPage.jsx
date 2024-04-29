@@ -54,6 +54,11 @@ export const SignupPage = () => {
       );
     }
   };
+
+  const handleSignupFormSubmit = (e) => {
+    e.preventDefault();
+    handleSignup();
+  };
   const handleSignup = () => {
     dispatch(
       authOperations.registration({ email, password, role: "Customer" })
@@ -151,7 +156,7 @@ export const SignupPage = () => {
 
         <Box>
           <Button
-            onClick={handleSignup}
+            onClick={handleSignupFormSubmit}
             disabled={loading}
             sx={{
               borderRadius: "16px",

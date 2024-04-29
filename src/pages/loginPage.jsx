@@ -39,6 +39,11 @@ export const LoginPage = () => {
       [name]: value,
     }));
   };
+
+  const handleLoginFormSubmit = (e) => {
+    e.preventDefault();
+    handleLogin();
+  };
   const handleLogin = async () => {
     try {
       await dispatch(authOperations.login(credentials));
@@ -140,7 +145,7 @@ export const LoginPage = () => {
             fullWidth
             variant="contained"
             color="primary"
-            onClick={handleLogin}
+            onClick={handleLoginFormSubmit}
             disabled={loading}
           >
             {loading ? "Входимо..." : "Увійти"}
